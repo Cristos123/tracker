@@ -1,0 +1,147 @@
+
+    // do {
+    //   let element =
+    //     result?.data[count].currentValue - result?.data[count]?.currentValue;
+    //   dataValue.push(element);
+    //   count++;
+    // } while (result?.data.length > count);
+    // let currentvalues = [];
+    // let allValue = result?.data;
+    // allValue.forEach((element) => {
+    //   currentvalues.push(element.currentValue);
+    // });
+    // console.log("currentvalues", currentvalues);
+
+    // for (let index = 0; index < result?.data.length; index++) {
+    //   let element =
+    //     result?.data[index].currentValue -
+    //     result?.data[index + 1]?.currentValue;
+    //   // element = result?.data[index]?.currentValue;
+    //   dataValue.push(element);
+    //   console
+    //     .log
+    //     // { element }
+    //     // "currentValue",
+    //     // // JSON.stringify(result?.data[index]),
+    //     // // "   result?.data[index].currentValue",
+    //     // result?.data[index].currentValue
+    //     ();
+    // }
+
+
+const splitWords = async (longText) => {
+  const sixChar = longText.slice(0, 6);
+  let lastText = longText.slice(6);
+  console.log({ lastText });
+  const worksSplit = lastText.split("");
+
+  let eightWords = [];
+  let charCounter = "";
+  for (const char of worksSplit) {
+    if (charCounter.length === 8) {
+      eightWords = [...eightWords, charCounter];
+      charCounter = "";
+      // console.log("eightWords in forloop", eightWords);
+    }
+    charCounter = charCounter.concat(char);
+    // console.log("charCounter in for loop", charCounter);
+  }
+  console.log({ sixChar, eightWords });
+
+  return {
+    sixChar,
+    eightWords,
+  };
+};
+ "mongoose-timezone": "^1.3.0",
+
+{  "_id": {    "$oid": "62e14cb89c930b6fa86e026c"  },  "status": "active",  "year": 2022,  "month": 7,  "day": 27,  "generatorOnTime": 1,  "isGenOnCount": 326,  "topic": "ifitnessjakande",  "dateCreatedAt": {    "$date": {      "$numberLong": "1658932408952"    }  },  "createdAt": {    "$date": {      "$numberLong": "1658932408953"    }  },  "updatedAt": {    "$date": {      "$numberLong": "1658951991005"    }  },  "__v": 0}
+
+
+
+
+    const renderDataInTheTable = (resDatas, resData2, genResDataOn) => {
+      const mytable = document.getElementById('html-table-body')
+      const fuelLevelTd = document.getElementById('fuel_levels')
+      const fuelConsumpTd = document.getElementById('fuelComps')
+      const newrow = document.getElementById('table_row')
+
+      // let fuelTD, fuelCumpTd;
+      // for (let index = 0; index < resDatas.length; index++) {
+      //   fuelTD = resDatas[index].currentValue;
+      //   // console.log('element', element);
+
+      //   cell.innerHTML = fuelTD
+      //   let trD = newrow.appendChild(cell)
+
+      // }
+      if (genResDataOn?.length == 0) {
+        resDatas.forEach((resData, index) => {
+          const resDataFuelConsump = resData2[index]
+          console.log({ resData, resDataFuelConsump, });
+          let newRow = document.createElement('tr')
+
+          let cell = document.createElement('td')
+
+          let cell2 = document.createElement('td')
+          let cell3 = document.createElement('td')
+          let cell4 = document.createElement('td')
+          let cell5 = document.createElement('td')
+          cell.innerHTML = dayjs(resData?.dateCreatedAt).format("YYYY-M-D") /* new Date(resData?.dateCreatedAt).toLocaleDateString() */ || dayjs(resDataFuelConsump?.dateCreatedAt).format("YYYY-M-D")
+          cell2.innerHTML = resData?.currentValue.toFixed(2) || 0
+          cell3.innerHTML = (resDataFuelConsump?.currentValue).toFixed(2)
+          // cell4.innerHTML = `${dats.hours == 0 || 1 ? `${dats.hours} hr` : `${dats.hours} hrs`}  ` + `${dats.minutes} mins`
+          cell5.innerHTML = resDataFuelConsump?.currentValue.toFixed(2)
+          newRow.appendChild(cell)
+          newRow.appendChild(cell2)
+          newRow.appendChild(cell3)
+          newRow.appendChild(cell4)
+          newRow.appendChild(cell5)
+
+          mytable.appendChild(newRow)
+        });
+      }
+
+
+      resDatas.forEach((resData, index) => {
+        const resDataFuelConsump = resData2[index]
+        const resDataGenOnTime = genResDataOn[index]
+        console.log({ resData, resDataFuelConsump });
+        let newRow = document.createElement('tr')
+
+        let cell = document.createElement('td')
+
+        let cell2 = document.createElement('td')
+        let cell3 = document.createElement('td')
+        let cell4 = document.createElement('td')
+        let cell5 = document.createElement('td')
+        cell.innerHTML = dayjs(resData?.dateCreatedAt).format("YYYY-M-D") /* new Date(resData?.dateCreatedAt).toLocaleDateString() */ || dayjs(resDataFuelConsump?.dateCreatedAt).format("YYYY-M-D")
+        cell2.innerHTML = resData?.currentValue.toFixed(2) || 0
+        cell3.innerHTML = (resDataFuelConsump?.currentValue).toFixed(2)
+        cell4.innerHTML = timeConvert(resDataGenOnTime.isGenOnCount)
+        cell5.innerHTML = resDataFuelConsump?.currentValue.toFixed(2)
+        newRow.appendChild(cell)
+        newRow.appendChild(cell2)
+        newRow.appendChild(cell3)
+        newRow.appendChild(cell4)
+        newRow.appendChild(cell5)
+
+        mytable.appendChild(newRow)
+      });
+
+      // resDatas2.forEach(resData => {
+      //   console.log({ resData });
+      //   let newRow = document.createElement('tr')
+
+
+      //   let cell = document.createElement('td')
+      //   let cell2 = document.createElement('td')
+      //   cell.innerHTML = resData.topic
+      //   cell2.innerHTML = resData.currentValue
+      //   newRow.appendChild(cell)
+      //   newRow.appendChild(cell2)
+      //   console.log({ newRow });
+
+      //   mytable.appendChild(newRow)
+      // });
+    }
